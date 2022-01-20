@@ -1,0 +1,58 @@
+<div class="bg-gradient">
+  <div class="contenedor cont-100vh cont-fx fx-center">
+    <mat-card class="min-w320">
+      <mat-card-header class="fx-jcenter">
+        <mat-card-title>Ingresar</mat-card-title>
+        <mat-card-subtitle>Quizz online</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <form
+          [formGroup]="loginForm"
+          autocomplete="off"
+          class="cont-fx fx-column"
+        >
+          <mat-form-field appearance="outline">
+            <mat-label>Tu correo</mat-label>
+            <input
+              formControlName="correo"
+              (keydown.space)="$event.preventDefault()"
+              matInput
+              placeholder="Tu correo"
+            />
+            <mat-icon matSuffix>alternate_email</mat-icon>
+            <mat-error>
+              {{ errorsCorreo }}
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              formControlName="password"
+              (keydown.space)="$event.preventDefault()"
+              matInput
+              type="password"
+              placeholder="Password"
+            />
+            <mat-icon matSuffix>password</mat-icon>
+            <mat-error> {{ errorsPassword }} </mat-error>
+          </mat-form-field>
+          <button
+            [disabled]="loginForm.invalid"
+            mat-raised-button
+            color="primary"
+          >
+            Ingresar
+          </button>
+          <button
+            (click)="submitForm()"
+            type="button"
+            mat-button
+            color="primary"
+          >
+            Olvidé mi contraseña
+          </button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,51 @@
+html,
+body {
+  height: 100%;
+}
+
+.contenedor {
+  max-width: 90%;
+  margin: 0 auto;
+}
+
+body {
+  margin: 0;
+  font-family: var(--sg-font-main);
+}
+
+.cont-100vh {
+  height: 100vh;
+}
+
+.cont-fx {
+  display: flex;
+}
+
+.fx-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.fx-column {
+  flex-direction: column;
+}
+
+.fx-row {
+  flex-direction: row;
+}
+
+.fx-jcenter {
+  justify-content: center;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.min-w320 {
+  min-width: 320px;
+}
+
+.bg-gradient {
+  background-image: var(--bg-gradient-login);
+}

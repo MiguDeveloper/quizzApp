@@ -1,1 +1,7 @@
-/* You can add global styles to this file, and also import other style files */
+@import "src/theme/sass/core/variables";
+@import "src/theme/sass/mixins/mixins";
+
+// plugins
+@import "src/theme/sass/plugins/normalize";
+
+@import "src/theme/sass/core/general";
