@@ -37,18 +37,18 @@
             <mat-error> {{ errorsPassword }} </mat-error>
           </mat-form-field>
           <button
+            *ngIf="!loading"
+            (click)="submitForm()"
             [disabled]="loginForm.invalid"
             mat-raised-button
             color="primary"
           >
             Ingresar
           </button>
-          <button
-            (click)="submitForm()"
-            type="button"
-            mat-button
-            color="primary"
-          >
+          <span *ngIf="loading">
+            <i class="fa fa-spinner fa-pulse fa-fw"></i> Accediendo...
+          </span>
+          <button type="button" mat-button color="primary">
             Olvidé mi contraseña
           </button>
         </form>

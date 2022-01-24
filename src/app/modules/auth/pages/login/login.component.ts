@@ -1,5 +1,9 @@
+import { errorCode } from './../../../../core/utils/auth';
+import { UserLS } from './../../../../core/models/auth.models';
+import { AuthService } from './../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -8,8 +12,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
+  loading = false;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadLoginForm();
@@ -23,9 +28,33 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm() {
+    this.loading = true;
+
     if (this.loginForm.invalid) {
+      this.loading = false;
       return;
     }
+
+    this.authService
+      .login(this.loginForm.value)
+      .then((data) => {
+        this.loading = false;
+        if (!data.user?.emailVerified) {
+          Swal.fire(
+            'Verificar correo',
+            'Se le ha enviado un correo de verificación por favor revisar',
+            'info'
+          );
+        } else {
+          // TODO: redireccionar
+          Swal.fire('Correcto', 'se logeo con exito', 'success');
+          this.setLocalStorage(data.user);
+        }
+      })
+      .catch((error) => {
+        this.loading = false;
+        Swal.fire('Error', errorCode(error.code), 'error');
+      });
   }
 
   get inputCorreo() {
@@ -62,5 +91,10 @@ export class LoginComponent implements OnInit {
       mensaje = 'El password es requerido';
     }
     return mensaje;
+  }
+
+  setLocalStorage({ uid, email }: any) {
+    const usuario: UserLS = { uid, email };
+    localStorage.setItem('user', JSON.stringify(usuario));
   }
 }
